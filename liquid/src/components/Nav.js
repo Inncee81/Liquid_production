@@ -1,58 +1,138 @@
-import React from 'react';
-import MediaRow from './mediaRow';
-import {useAllMedia} from '../hooks/ApiHooks';
-import {
-  GridList,
-  GridListTile,
-  ListSubheader,
-  makeStyles,
-  useMediaQuery,
-} from '@material-ui/core';
+import React, {useContext, useEffect} from 'react';
+import {Link as RouterLink} from 'react-router-dom';
+import {checkToken} from '../hooks/ApiHooks';
+import {withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {MediaContext} from '../contexts/MediaContext';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, ListItemIcon, Button, Typography, makeStyles, } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    flexGrow: 1,
   },
-  gridList: {
-    width: '100%',
-    height: '100%',
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+  title: {
+    flexGrow: 1,
   },
 }));
 
-const MediaTable = () => {
+const Nav = ({history}) => {
   const classes = useStyles();
-  const matches = useMediaQuery('(min-width:697px)');
+  const [user, setUser] = useContext(MediaContext);
+  const [open, setOpen] = React.useState(false);
 
-  const picArray = useAllMedia();
+  const toggleDrawer = (opener) => () => {
+    setOpen(opener);
+  };
 
-  console.log(picArray);
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const userdata = await checkToken(localStorage.getItem('token'));
+        console.log(userdata);
+        setUser(userdata);
+        history.push('/home');
+      } catch (e) {
+        // send to login
+        history.push('/');
+      }
+    };
+
+    checkUser();
+  }, [history, setUser]);
 
   return (
-    <div className={classes.root}>
-      <GridList
-        cellHeight={180}
-        className={classes.gridList}
-        cols={matches ? 3 : 2}>
-        <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
-          <ListSubheader component="div">All Media</ListSubheader>
-        </GridListTile>
-        {
-          picArray.map((file) =>
-            <GridListTile key={file.file_id}>
-              <MediaRow file={file}/>
-            </GridListTile>)
-        }
-      </GridList>
-    </div>
+    <>
+      <AppBar
+      style={{ background: "#2E3B55" }}
+      >
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color= "inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
+            <MenuIcon/>
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            My First React Experience
+          </Typography>
+          {user === null ?
+            <Button
+              color="inherit"
+              startIcon={<ExitToAppIcon/>}
+              component={RouterLink}
+              to="/"
+            >
+              Login
+            </Button> :
+            <Button
+              color="inherit"
+              startIcon={<ExitToAppIcon/>}
+              component={RouterLink}
+              to="/logout"
+            >
+              Logout
+            </Button>
+          }
+        </Toolbar>
+      </AppBar>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        <List>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/home"
+          >
+            <ListItemIcon>
+              <HomeIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Home"/>
+          </ListItem>
+          {user !== null &&
+          <>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/profile"
+          >
+            <ListItemIcon>
+              <AccountBoxIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Profile"/>
+          </ListItem>
+          <ListItem
+          button
+          component={RouterLink}
+          onClick={toggleDrawer(false)}
+          to="/upload"
+        >
+          <ListItemIcon>
+            <AccountBoxIcon/>
+          </ListItemIcon>
+          <ListItemText primary="Upload"/>
+        </ListItem>
+        </>
+          }
+        </List>
+      </Drawer>
+    </>
   );
 };
 
-export default MediaTable;
+Nav.propTypes = {
+  history: PropTypes.object,
+};
 
+
+export default withRouter(Nav);
