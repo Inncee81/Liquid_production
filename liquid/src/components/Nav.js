@@ -50,7 +50,7 @@ const Nav = ({history}) => {
   return (
     <>
       <AppBar
-      style={{ background: "#2E3B55" }}
+      style={{ background: "#444F51" }}
       >
         <Toolbar>
           <IconButton
