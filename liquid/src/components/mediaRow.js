@@ -17,13 +17,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MediaRow = ({file}) => {
+  const description = JSON.parse(file.description);
   const classes = useStyles();
   return (
     <>
-      <img src={mediaUrl + file.thumbnails.w320} alt={file.title}/>
+      <img 
+      src={mediaUrl + file.thumbnails.w320}
+      alt={file.title}
+      style={
+        {
+            filter: ` 
+                brightness(${description.filters.brightness}%)
+                contrast(${description.filters.contrast}%)
+                saturate(${description.filters.saturate}%)
+                sepia(${description.filters.sepia}%)`,
+                    
+        }
+      }
+      />
       <GridListTileBar
         title={file.title}
-        subtitle={file.description}
+        subtitle={description.desc}
         actionIcon={
           <IconButton
             aria-label={`info about ${file.title}`}
