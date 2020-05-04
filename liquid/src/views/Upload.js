@@ -5,9 +5,7 @@ import { uploadPicture } from '../hooks/ApiHooks';
 import {    Grid,
             Button,
             TextField,
-            CircularProgress,
-            Slider,
-            Typography } from '@material-ui/core';
+            CircularProgress } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Backbutton from '../components/Backbutton';
 
@@ -16,32 +14,15 @@ const Upload = ({ history }) => {
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
-        try {
-            const uploadObject= {
-                title: inputs.title,
-                description: JSON.stringify({
-                    desc: inputs.description,
-                    filters: {
-                        brightness: inputs.brightness,
-                        contrast: inputs.contrast,
-                        saturate: inputs.hue,
-                        sepia: inputs.sepia,
-                    },
-                }),
-                file: inputs.file,
-            };
-            const result = await uploadPicture(uploadObject, localStorage.getItem('token'));
+            const result = await uploadPicture(localStorage.getItem('token'));
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
                 history.push('/home');
             }, 2000);
-        } catch (e) {
-            console.log(e.message);
-        }
     };
 
-    const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange, handleSliderChange } = useUploadForm(doUpload);
+    const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange } = useUploadForm(doUpload);
 
     useEffect(() => {
         const reader = new FileReader();
@@ -85,52 +66,7 @@ const Upload = ({ history }) => {
                         <Grid container spacing={3}>
                             {inputs.dataUrl.length > 0 &&
                             <Grid item xs={12}>
-                                <img class="previewImg" style={
-                                    {
-                                        filter: ` 
-                                            brightness(${inputs.brightness}%)
-                                            contrast(${inputs.contrast}%)
-                                            saturate(${inputs.hue}%)
-                                            sepia(${inputs.sepia}%)`,
-                                                
-                                    }
-                                            } src={inputs.dataUrl} alt="preview" />
-                                <Typography>Brightenss</Typography>
-                                <Slider 
-                                    name='brightness'
-                                    value={inputs.brightness}
-                                    onChange={handleSliderChange}
-                                    min={0}
-                                    max={200}
-                                    step={1}
-                                />
-                                <Typography>Contrast</Typography>
-                                <Slider 
-                                    name='contrast'
-                                    value={inputs.contrast}
-                                    onChange={handleSliderChange}
-                                    min={0}
-                                    max={200}
-                                    step={1}
-                                />
-                                <Typography>Saturation</Typography>
-                                <Slider 
-                                    name='hue'
-                                    value={inputs.hue}
-                                    onChange={handleSliderChange}
-                                    min={0}
-                                    max={200}
-                                    step={1}
-                                />
-                                <Typography>Temperature</Typography>
-                                <Slider 
-                                    name='sepia'
-                                    value={inputs.sepia}
-                                    onChange={handleSliderChange}
-                                    min={0}
-                                    max={200}
-                                    step={1}
-                                />
+                                <img class="previewImg" src={inputs.dataUrl} alt="preview" />
                             </Grid>}
                             <Grid item xs={12}>
                                 <TextValidator

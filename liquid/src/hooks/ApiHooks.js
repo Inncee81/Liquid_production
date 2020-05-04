@@ -5,7 +5,7 @@ const baseUrl = "http://media.mw.metropolia.fi/wbma/";
 const useAllMedia = () => {
   const [data, setData] = useState([]);
   const fetchUrl = async () => {
-    const response = await fetch(baseUrl + 'tags/liquidapp');
+    const response = await fetch(baseUrl + 'tags/liquid');
     const json = await response.json();
 
     const items = await Promise.all(

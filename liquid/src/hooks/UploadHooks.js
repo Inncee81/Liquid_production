@@ -7,10 +7,6 @@ const useUploadForm = (callback) => {
         description: '',
         file: null,
         dataUrl:'',
-        brightness: 100,
-        contrast: 100,
-        hue: 100,
-        sepia: 0,
     });
     const handleSubmit = (event) => {
       if (event) {
@@ -39,17 +35,6 @@ const useUploadForm = (callback) => {
 
     };
 
-    const handleSliderChange = (event, value) => {
-      if (event.target.previousElementSibling !== null &&
-          event.target.previousElementSibling.name !== undefined && event.target !== null) {
-        setInputs( (inputs) => { 
-          return {
-                ...inputs, 
-                [event.target.previousElementSibling.name]: value,
-              };
-          });
-      };
-    };
 
     return {
       handleSubmit,
@@ -57,7 +42,6 @@ const useUploadForm = (callback) => {
       handleFileChange, 
       inputs,
       setInputs,
-      handleSliderChange, 
     };
   };
 
