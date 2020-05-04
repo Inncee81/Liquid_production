@@ -5,7 +5,7 @@ const baseUrl = "http://media.mw.metropolia.fi/wbma/";
 const useAllMedia = () => {
   const [data, setData] = useState([]);
   const fetchUrl = async () => {
-    const response = await fetch(baseUrl + "media");
+    const response = await fetch(baseUrl + 'tags/liquid');
     const json = await response.json();
 
     const items = await Promise.all(
@@ -26,18 +26,18 @@ const useAllMedia = () => {
 };
 
 const useSingleMedia = (id) => {
-  const [data, setData] = useState({});
-  const fetchUrl = async (fileid) => {
-    const response = await fetch(baseUrl + "media/" + fileid);
-    const item = await response.json();
-    setData(item);
-  };
+  const [data, setData] = useState(null);
+        const fetchUrl = async (fileid) => {
+          const response = await fetch(baseUrl + "media/" + fileid);
+          const item = await response.json();
+          setData(item);
+        };
+        
+        useEffect(() => {
+          fetchUrl(id);
+        }, [id]);
 
-  useEffect(() => {
-    fetchUrl(id);
-  }, [id]);
-
-  return data;
+        return data;
 };
 
 const getAvatarImage = async (id) => {
@@ -150,11 +150,48 @@ try {
   const response = await fetch(baseUrl + 'media', fetchOptions);
   const json = await response.json();
   if (!response.ok) throw new Error(json.message + ': ' + json.error);
-  return json;
+
+  const tagOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      'file_id': json.file_id,
+      'tag': 'liquid',
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+  };
+  const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
+  const tagJson = await tagResponse.json();
+  // const tagJson = addTag(json.file_id, 'tagi_tähän', token); < tagin lisäys funkitolla.
+  return {json, tagJson};
 } catch (e) {
   throw new Error(e.message);
 }
 
+};
+
+const addTag = async (file_id, tag, token) => {
+  const tagOptions = {
+    method: 'POST',
+  body: JSON.stringify({
+    file_id,
+    tag,
+  }),
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': token,
+  },
+};
+
+try {
+const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
+const tagJson = await tagResponse.json();
+return tagJson;
+} catch (e) {
+  throw new Error(e.message);
+}
 };
 
 
@@ -167,7 +204,8 @@ export {
   checkToken,
   getAvatarImage,
   updateProfile, 
-  uploadPicture, 
+  uploadPicture,
+  addTag,
 };
  
 
