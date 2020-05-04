@@ -5,22 +5,7 @@ import { login } from '../hooks/ApiHooks';
 import { MediaContext } from '../contexts/MediaContext';
 import { Button, TextField, Grid } from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import { cyan, purple } from '@material-ui/core/colors/cyan';
 
-/*const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // Purple and green play nicely together.
-      main: cyan,
-    },
-    secondary: {
-      // This is green.A700 as hex.
-      main: "#11cb5f",
-    },
-  },
-});
-*/
 const LoginForm = ({history}) =>{
     const [user, setUser] = useContext(MediaContext);
     const doLogin = async () => {

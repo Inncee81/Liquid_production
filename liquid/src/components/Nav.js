@@ -49,40 +49,39 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar
-      style={{ background: "#444F51" }}
-      >
+      <AppBar style={{ background: "#444F51" }}>
         <Toolbar>
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color= "inherit"
+            color="inherit"
             aria-label="menu"
             onClick={toggleDrawer(true)}
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             My First React Experience
           </Typography>
-          {user === null ?
+          {user === null ? (
             <Button
               color="inherit"
-              startIcon={<ExitToAppIcon/>}
+              startIcon={<ExitToAppIcon />}
               component={RouterLink}
               to="/"
             >
               Login
-            </Button> :
+            </Button>
+          ) : (
             <Button
               color="inherit"
-              startIcon={<ExitToAppIcon/>}
+              startIcon={<ExitToAppIcon />}
               component={RouterLink}
               to="/logout"
             >
               Logout
             </Button>
-          }
+          )}
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -94,36 +93,36 @@ const Nav = ({history}) => {
             to="/home"
           >
             <ListItemIcon>
-              <HomeIcon/>
+              <HomeIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Home"/>
+            <ListItemText primary="Home" />
           </ListItem>
-          {user !== null &&
-          <>
-          <ListItem
-            button
-            component={RouterLink}
-            onClick={toggleDrawer(false)}
-            to="/profile"
-          >
-            <ListItemIcon>
-              <AccountBoxIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Profile"/>
-          </ListItem>
-          <ListItem
-          button
-          component={RouterLink}
-          onClick={toggleDrawer(false)}
-          to="/upload"
-        >
-          <ListItemIcon>
-            <AccountBoxIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Upload"/>
-        </ListItem>
-        </>
-          }
+          {user !== null && (
+            <>
+              <ListItem
+                button
+                component={RouterLink}
+                onClick={toggleDrawer(false)}
+                to="/profile"
+              >
+                <ListItemIcon>
+                  <AccountBoxIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItem>
+              <ListItem
+                button
+                component={RouterLink}
+                onClick={toggleDrawer(false)}
+                to="/upload"
+              >
+                <ListItemIcon>
+                  <AccountBoxIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Upload" />
+              </ListItem>
+            </>
+          )}
         </List>
       </Drawer>
     </>
