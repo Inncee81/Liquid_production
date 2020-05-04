@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import "./App.css";
+import Home from "./views/Home";
+import Nav from "./components/Nav";
+import Single from "./views/Singe";
+import Profile from "./views/Profile";
+import Login from "./views/Login";
+import Logout from "./views/Logout";
+import {MediaProvider} from './contexts/MediaContext';
+import {Container} from '@material-ui/core';
+import Upload from './views/Upload';
 
-function App() {
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <MediaProvider>
+        <Container maxWidth="md">
+        <Nav/>
+        <main>
+        <Switch>
+          <Route path="/" exact component={Login}/>
+          <Route path="/home" component={Home}/>
+          <Route path="/profile" component={Profile}/>
+          <Route path={'/logout'} component={Logout}/>
+          <Route path="/single/:id" component={Single}/>
+          <Route path={'/upload'} component={Upload}/>
+        </Switch>
+        </main>
+        </Container>
+      </MediaProvider>
+      
+    </Router>
   );
-}
+};
 
 export default App;

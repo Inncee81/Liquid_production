@@ -1,15 +1,39 @@
+main {
+  padding: 5rem;
+}
+
+table {
+  width: 40rem;
+  border-spacing: 0;
+  margin: auto;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: #ccc 1px solid;
+}
+
+
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.spinning {
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.spinning2 {
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .spinning {
+    animation: App-logo-spin infinite 2s linear;
+  }
+  .spinning2 {
+    animation: App-logo-spin2 infinite 2s linear;
   }
 }
 
@@ -29,11 +53,17 @@
 }
 
 @keyframes App-logo-spin {
+  0%   {background-color: purple;}
+  25%  {background-color: navy;}
+  50%  {background-color: pink;}
+  75% {background-color: turquoise;}
+  100% {background-color: rgb(98, 0, 255);}
+}
+
+@keyframes App-logo-spin2 {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
-/* testi */ 
