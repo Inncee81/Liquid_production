@@ -1,11 +1,19 @@
-import React, {useContext, useState, useEffect } from 'react';
-import { MediaContext } from '../contexts/MediaContext';
-import {Card, CardMedia, Button, CardContent, Typography} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import {getAvatarImage} from '../hooks/ApiHooks';
-import ProfileForm from '../components/ProfileForm';
+import React, { useContext, useState, useEffect } from "react";
+import { MediaContext } from "../contexts/MediaContext";
+import {
+  Card,
+  CardMedia,
+  Button,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAvatarImage } from "../hooks/ApiHooks";
+import ProfileForm from "../components/ProfileForm";
+import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import ProfilePictureForm from "../components/ProfilePictureForm";
 
-const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 const Profile = () => {
-  const [user] = useContext(MediaContext)
+  const [user] = useContext(MediaContext);
   const classes = useStyles();
   const [avatar, setAvatar] = useState([]);
   useEffect(() => {
@@ -29,39 +37,95 @@ const Profile = () => {
   }, [user]);
 
   const [toggle, setToggle] = useState(true);
-    const showHide = () => {
-      setToggle(!toggle);
-    };
+  const showHide = () => {
+    setToggle(!toggle);
+  };
 
-  
   return (
-      <>
-        <h1>Profile</h1>
-        {user !== null && avatar.length > 0 &&
+    <>
+      <h1 color="primary">Profile</h1>
+      {user !== null && avatar.length > 0 && (
         <Card className={classes.root}>
-        <CardMedia
-          className={classes.media}
-          image={mediaUrl + avatar[0].filename}
-          title="profilePicture"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-          {user.username}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {user.email}<br></br>
-            {user.full_name}
-          </Typography>
-        </CardContent>
+          <CardMedia
+            className={classes.media}
+            image={mediaUrl + avatar[0].filename}
+            title="profilePicture"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {user.username}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {user.email}
+              <br></br>
+              {user.full_name}
+            </Typography>
+          </CardContent>
         </Card>
-        }
-        { toggle?
-        <Button onClick={showHide}>
-        Update profile
-        </Button> :
-        <ProfileForm/>
-        }
-      </>
+      )}
+      {toggle ? (
+        <Button onClick={showHide} color="secondary">
+          Update profile
+        </Button>
+      ) : (
+        <ProfileForm />
+      )}
+      {toggle ? (
+        <Button onClick={showHide} color="secondary">
+          Update profile picture
+        </Button>
+      ) : (
+        <ProfilePictureForm />
+      )}
+      <h1>Favorite Games</h1>
+      {toggle ? (
+        <>
+          <p>You haven't added anything here!</p>
+          <Button
+            onClick={showHide}
+            variant="outlined"
+            className={classes.button}
+            startIcon={<AddRoundedIcon />}
+          >
+            Add Games
+          </Button>
+        </>
+      ) : (
+        " "
+      )}
+      <h1>Recently reviewed</h1>
+      {toggle ? (
+        <>
+          <p>You haven't reviewed anything yet!</p>
+          <Button
+            onClick={showHide}
+            variant="outlined"
+            className={classes.button}
+            startIcon={<AddRoundedIcon />}
+          >
+            Rate a game
+          </Button>
+        </>
+      ) : (
+        " "
+      )}
+      <h1>Wishlist</h1>
+      {toggle ? (
+        <>
+          <p>You haven't added anything here!</p>
+          <Button
+            onClick={showHide}
+            variant="outlined"
+            className={classes.button}
+            startIcon={<AddRoundedIcon />}
+          >
+            Add Games
+          </Button>
+        </>
+      ) : (
+        " "
+      )}
+    </>
   );
 };
 

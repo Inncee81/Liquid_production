@@ -14,7 +14,7 @@ const Login = () => {
       <LoginForm/> :
       <RegisterForm/>
     }
-    <Button onClick={showHide}>
+    <Button onClick={showHide} color="secondary">
       {toggle ? 'Sign up' : 'Login'}
     </Button> 
     </>
