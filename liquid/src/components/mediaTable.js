@@ -37,10 +37,10 @@ const MediaTable = () => {
   return (
     <div className={classes.root}>
       <GridList
-        cellHeight={180}
+        cellHeight={200}
         className={classes.gridList}
-        cols={matches ? 3 : 2}>
-        <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
+        cols={matches ? 2 : 1}>
+        <GridListTile key="Subheader" cols={2} style={{height: 'auto'}}>
           <ListSubheader component="div">All Media</ListSubheader>
         </GridListTile>
         {

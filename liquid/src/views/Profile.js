@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getAvatarImage } from "../hooks/ApiHooks";
 import ProfileForm from "../components/ProfileForm";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import ProfilePictureForm from "../components/ProfilePictureForm";
 
 const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
@@ -42,7 +43,7 @@ const Profile = () => {
 
   return (
     <>
-      <h1>Profile</h1>
+      <h1 color="primary">Profile</h1>
       {user !== null && avatar.length > 0 && (
         <Card className={classes.root}>
           <CardMedia
@@ -63,9 +64,18 @@ const Profile = () => {
         </Card>
       )}
       {toggle ? (
-        <Button onClick={showHide}>Update profile</Button>
+        <Button onClick={showHide} color="secondary">
+          Update profile
+        </Button>
       ) : (
         <ProfileForm />
+      )}
+      {toggle ? (
+        <Button onClick={showHide} color="secondary">
+          Update profile picture
+        </Button>
+      ) : (
+        <ProfilePictureForm />
       )}
       <h1>Favorite Games</h1>
       {toggle ? (
@@ -94,6 +104,22 @@ const Profile = () => {
             startIcon={<AddRoundedIcon />}
           >
             Rate a game
+          </Button>
+        </>
+      ) : (
+        " "
+      )}
+      <h1>Wishlist</h1>
+      {toggle ? (
+        <>
+          <p>You haven't added anything here!</p>
+          <Button
+            onClick={showHide}
+            variant="outlined"
+            className={classes.button}
+            startIcon={<AddRoundedIcon />}
+          >
+            Add Games
           </Button>
         </>
       ) : (

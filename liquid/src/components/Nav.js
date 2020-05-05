@@ -8,6 +8,7 @@ import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, List
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AddPhotoAlternateRoundedIcon from "@material-ui/icons/AddPhotoAlternateRounded";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +50,9 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar style={{ background: "#444F51" }}>
+      <AppBar
+        style={{ background: "#444F51" }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -61,7 +64,7 @@ const Nav = ({history}) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            My First React Experience
+            Liquid
           </Typography>
           {user === null ? (
             <Button
@@ -117,7 +120,7 @@ const Nav = ({history}) => {
                 to="/upload"
               >
                 <ListItemIcon>
-                  <AccountBoxIcon color="primary" />
+                  <AddPhotoAlternateRoundedIcon color="primary" />
                 </ListItemIcon>
                 <ListItemText primary="Upload" />
               </ListItem>
