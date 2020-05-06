@@ -12,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getAvatarImage } from "../hooks/ApiHooks";
 import ProfileForm from "../components/ProfileForm";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import ProfilePictureForm from "../components/ProfilePictureForm";
 
 const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
@@ -71,16 +70,12 @@ const Profile = () => {
       ) : (
         <ProfileForm />
       )}
-      {toggle ? (
         <Button 
           component={RouterLink}
           to='/uploadprofilepic'
           color="secondary">
           Update profile picture
         </Button>
-      ) : (
-        <ProfilePictureForm />
-      )}
       <h1>Favorite Games</h1>
       {toggle ? (
         <>
