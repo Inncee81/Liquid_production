@@ -41,7 +41,7 @@ const UploadProfilePic = ({ history }) => {
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
-                history.push('/home');
+                history.push('/profile');
             }, 2000);
         } catch (e) {
             console.log(e.message);

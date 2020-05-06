@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import useUploadForm from '../hooks/UploadHooks';
-import { uploadPicture } from '../hooks/ApiHooks';
+import { uploadFavorite } from '../hooks/ApiHooks';
 import {    Grid,
             Button,
             TextField,
             CircularProgress } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Backbutton from '../components/Backbutton';
+import { MediaContext } from '../contexts/MediaContext';
 
 const AddFavorite = ({ history }) => {
+    const [user] = useContext(MediaContext);
     const [loading, setLoading] = useState(false); 
-    const tag = 'liquidfavorites';
+    const tag = 'favorite_' + user.user_id;
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadPicture(inputs, localStorage.getItem('token'), tag);
+            const result = await uploadFavorite(inputs, localStorage.getItem('token'), tag);
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
-                history.push('/home');
+                history.push('/profile');
             }, 2000);
         } catch (e) {
             console.log(e.message);
