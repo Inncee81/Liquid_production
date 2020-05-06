@@ -72,7 +72,10 @@ const Profile = () => {
         <ProfileForm />
       )}
       {toggle ? (
-        <Button onClick={showHide} color="secondary">
+        <Button 
+          component={RouterLink}
+          to='/uploadprofilepic'
+          color="secondary">
           Update profile picture
         </Button>
       ) : (

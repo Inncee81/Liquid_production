@@ -10,6 +10,7 @@ import Logout from "./views/Logout";
 import {MediaProvider} from './contexts/MediaContext';
 import {Container} from '@material-ui/core';
 import Upload from './views/Upload';
+import UploadProfilePic from "./views/UploadProfilePic";
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path={'/logout'} component={Logout}/>
           <Route path="/single/:id" component={Single}/>
           <Route path={'/upload'} component={Upload}/>
+          <Route path={'/uploadprofilepic'} component={UploadProfilePic}/>
         </Switch>
         </main>
         </Container>

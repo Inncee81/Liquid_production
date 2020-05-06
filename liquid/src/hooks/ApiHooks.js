@@ -41,7 +41,7 @@ const useSingleMedia = (id) => {
 };
 
 const getAvatarImage = async (id) => {
-  const response = await fetch(baseUrl + 'tags/avatar_' + id);
+  const response = await fetch(baseUrl + 'tags/liquidavatar_' + id);
   return await response.json();
   };
 
@@ -193,6 +193,45 @@ return tagJson;
 }
 };
 
+const uploadProfilePicture = async (inputs, token, tag) => {
+  const formData = new FormData();
+        formData.append('title', inputs.title);
+        formData.append('description', inputs.description);
+        formData.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: formData,
+    headers: {
+        'x-access-token': token,
+    },
+};
+try {
+  const response = await fetch(baseUrl + 'media', fetchOptions);
+  const json = await response.json();
+  if (!response.ok) throw new Error(json.message + ': ' + json.error);
+
+  const tagOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      'file_id': json.file_id,
+      'tag': 'liquidProfiles',
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+  };
+  const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
+  const tagJson = await tagResponse.json();
+  const tagi = addTag(json.file_id, tag, token);
+  return {json, tagJson, tagi};
+} catch (e) {
+  throw new Error(e.message);
+}
+
+};
+
 
 export {
   useAllMedia,
@@ -205,6 +244,7 @@ export {
   updateProfile, 
   uploadPicture,
   addTag,
+  uploadProfilePicture,
 };
  
 
