@@ -6,7 +6,7 @@ import { Grid, Button, TextField, CircularProgress } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Backbutton from "../components/Backbutton";
 
-const Upload = ({ history }) => {
+const UploadProfilePicture = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const doUpload = async () => {
     setLoading(true);
@@ -134,8 +134,8 @@ const Upload = ({ history }) => {
   );
 };
 
-Upload.propTypes = {
+UploadProfilePicture.propTypes = {
   history: PropTypes.object,
 };
 
-export default Upload;
+export default UploadProfilePicture;

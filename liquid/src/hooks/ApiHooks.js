@@ -164,7 +164,6 @@ try {
   };
   const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
   const tagJson = await tagResponse.json();
-  // const tagJson = addTag(json.file_id, 'tagi_tähän', token); < tagin lisäys funkitolla.
   return {json, tagJson};
 } catch (e) {
   throw new Error(e.message);

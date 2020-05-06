@@ -14,12 +14,16 @@ const Upload = ({ history }) => {
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
-            const result = await uploadPicture(localStorage.getItem('token'));
+        try {
+            const result = await uploadPicture(inputs, localStorage.getItem('token'));
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
                 history.push('/home');
             }, 2000);
+        } catch (e) {
+            console.log(e.message);
+        }
     };
 
     const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange } = useUploadForm(doUpload);
