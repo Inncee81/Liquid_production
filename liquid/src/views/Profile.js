@@ -7,6 +7,7 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAvatarImage } from "../hooks/ApiHooks";
 import ProfileForm from "../components/ProfileForm";
@@ -82,6 +83,8 @@ const Profile = () => {
         <>
           <p>You haven't added anything here!</p>
           <Button
+            component={RouterLink}
+            to="/upload"
             onClick={showHide}
             variant="outlined"
             className={classes.button}
@@ -98,6 +101,8 @@ const Profile = () => {
         <>
           <p>You haven't reviewed anything yet!</p>
           <Button
+            component={RouterLink}
+            to="/upload"
             onClick={showHide}
             variant="outlined"
             className={classes.button}
@@ -114,6 +119,8 @@ const Profile = () => {
         <>
           <p>You haven't added anything here!</p>
           <Button
+            component={RouterLink}
+            to="/upload"
             onClick={showHide}
             variant="outlined"
             className={classes.button}

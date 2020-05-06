@@ -10,6 +10,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AddPhotoAlternateRoundedIcon from "@material-ui/icons/AddPhotoAlternateRounded";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,9 +51,7 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar
-        style={{ background: "#444F51" }}
-      >
+      <AppBar style={{ background: "#444F51" }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -66,6 +65,18 @@ const Nav = ({history}) => {
           <Typography variant="h6" className={classes.title}>
             Liquid
           </Typography>
+          {user === null ? (
+            " "
+          ) : (
+            <Button
+              color="inherit"
+              startIcon={<AddBoxRoundedIcon />}
+              component={RouterLink}
+              to="/upload"
+            >
+              New post
+            </Button>
+          )}
           {user === null ? (
             <Button
               color="inherit"
