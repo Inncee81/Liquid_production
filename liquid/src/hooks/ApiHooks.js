@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 const baseUrl = "http://media.mw.metropolia.fi/wbma/";
 
-const useAllMedia = () => {
+const useAllMedia = (tag) => {
   const [data, setData] = useState([]);
   const fetchUrl = async () => {
-    const response = await fetch(baseUrl + 'tags/liquid');
+    const response = await fetch(baseUrl + 'tags/'+tag);
     const json = await response.json();
 
     const items = await Promise.all(
@@ -133,7 +133,7 @@ const updateProfile = async (inputs, token) => {
   }
 };
 
-const uploadPicture = async (inputs, token) => {
+const uploadPicture = async (inputs, token, tag) => {
   const formData = new FormData();
         formData.append('title', inputs.title);
         formData.append('description', inputs.description);
@@ -164,7 +164,8 @@ try {
   };
   const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
   const tagJson = await tagResponse.json();
-  return {json, tagJson};
+  const tagi = addTag(json.file_id, tag, token);
+  return {json, tagJson, tagi};
 } catch (e) {
   throw new Error(e.message);
 }

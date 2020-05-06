@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import MediaRow from './mediaRow';
 import {useAllMedia} from '../hooks/ApiHooks';
 import {
@@ -8,6 +9,7 @@ import {
   makeStyles,
   useMediaQuery,
 } from '@material-ui/core';
+import { MediaContext } from '../contexts/MediaContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,16 +28,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MediaTable = () => {
+const MyTable = ({tag}) => {
+    const [user] =useContext(MediaContext);
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const picArray = useAllMedia('liquid');
+  const picArray = useAllMedia(tag);
 
   console.log(picArray);
+  let newPicArray;
+  if(picArray.length > 0 && user !== null) {
+    newPicArray = picArray.filter(pic => pic.user_id === user.user_id);
+    }
 
   return (
     <div className={classes.root}>
+        {user !== null && picArray.length > 0 &&
       <GridList
         cellHeight={250}
         className={classes.gridList}
@@ -44,15 +52,20 @@ const MediaTable = () => {
           <ListSubheader component="div">All Media</ListSubheader>
         </GridListTile>
         {
-          picArray.map((file) =>
+          newPicArray.map((file) =>
             <GridListTile key={file.file_id}>
               <MediaRow file={file}/>
             </GridListTile>)
         }
       </GridList>
+    }
     </div>
   );
 };
 
-export default MediaTable;
+MyTable.propTypes = {
+    tag: PropTypes.string,
+  };
+
+export default MyTable;
 

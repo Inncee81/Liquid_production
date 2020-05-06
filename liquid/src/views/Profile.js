@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getAvatarImage } from "../hooks/ApiHooks";
 import ProfileForm from "../components/ProfileForm";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import MyTable from "../components/myTable";
 
 const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
@@ -48,7 +49,7 @@ const Profile = () => {
         <Card className={classes.root}>
           <CardMedia
             className={classes.media}
-            image={mediaUrl + avatar[0].filename}
+            image={mediaUrl + avatar[1].filename}
             title="profilePicture"
           />
           <CardContent>
@@ -77,12 +78,13 @@ const Profile = () => {
           Update profile picture
         </Button>
       <h1>Favorite Games</h1>
+      <MyTable tag='liquidfavorites'/>
       {toggle ? (
         <>
           <p>You haven't added anything here!</p>
           <Button
             component={RouterLink}
-            to="/upload"
+            to="/addfavorite"
             onClick={showHide}
             variant="outlined"
             className={classes.button}

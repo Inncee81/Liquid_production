@@ -11,6 +11,7 @@ import {MediaProvider} from './contexts/MediaContext';
 import {Container} from '@material-ui/core';
 import Upload from './views/Upload';
 import UploadProfilePic from "./views/UploadProfilePic";
+import AddFavorite from "./views/AddFavorite";
 
 
 
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/single/:id" component={Single}/>
           <Route path={'/upload'} component={Upload}/>
           <Route path={'/uploadprofilepic'} component={UploadProfilePic}/>
+          <Route path={'/addfavorite'} component={AddFavorite}/>
         </Switch>
         </main>
         </Container>
