@@ -1,24 +1,22 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useUploadForm from '../hooks/UploadHooks';
-import { uploadFavorite } from '../hooks/ApiHooks';
+import { uploadPicture } from '../hooks/ApiHooks';
 import {    Grid,
             Button,
             TextField,
             CircularProgress } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Backbutton from '../components/Backbutton';
-import { MediaContext } from '../contexts/MediaContext';
 
-const AddFavorite = ({ history }) => {
-    const [user] = useContext(MediaContext);
+const AddReview = ({ history }) => {
     const [loading, setLoading] = useState(false); 
-    const tag = 'favorite_' + user.user_id;
+    const tag = 'liquidReviews';
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadFavorite(inputs, localStorage.getItem('token'), tag);
+            const result = await uploadPicture(inputs, localStorage.getItem('token'), tag);
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
@@ -62,7 +60,7 @@ const AddFavorite = ({ history }) => {
         <Backbutton/>
             <Grid container spacing={8}>
                 <Grid item>
-                    <h1>Add Favorite Game</h1>
+                    <h1>Make a review</h1>
                 </Grid>
                 <Grid item xs={12}>
                     <ValidatorForm
@@ -119,7 +117,7 @@ const AddFavorite = ({ history }) => {
                                         fullWidth
                                         color="primary"
                                         variant="contained"
-                                        type="submit">Add to Profile</Button>
+                                        type="submit">Review!</Button>
                                 </Grid>
                             </Grid>
                     </ValidatorForm>
@@ -134,9 +132,9 @@ const AddFavorite = ({ history }) => {
     );
 }
 
-AddFavorite.propTypes = {
+AddReview.propTypes = {
     history: PropTypes.object,
 };
 
-export default AddFavorite;
+export default AddReview;
 

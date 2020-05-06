@@ -12,6 +12,8 @@ import {Container} from '@material-ui/core';
 import Upload from './views/Upload';
 import UploadProfilePic from "./views/UploadProfilePic";
 import AddFavorite from "./views/AddFavorite";
+import AddReview from './views/AddReview';
+import AddWish from './views/AddWish';
 
 
 
@@ -31,6 +33,8 @@ const App = () => {
           <Route path={'/upload'} component={Upload}/>
           <Route path={'/uploadprofilepic'} component={UploadProfilePic}/>
           <Route path={'/addfavorite'} component={AddFavorite}/>
+          <Route path={'/addreview'} component={AddReview}/>
+          <Route path={'/addwish'} component={AddWish}/>
         </Switch>
         </main>
         </Container>

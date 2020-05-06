@@ -97,12 +97,13 @@ const Profile = () => {
         " "
       )}
       <h1>Recently reviewed</h1>
+      <MyTable tag='liquidReviews'/>
       {toggle ? (
         <>
           <p>You haven't reviewed anything yet!</p>
           <Button
             component={RouterLink}
-            to="/upload"
+            to="/addreview"
             onClick={showHide}
             variant="outlined"
             className={classes.button}
@@ -115,12 +116,13 @@ const Profile = () => {
         " "
       )}
       <h1>Wishlist</h1>
+      <MyTable tag='liquidwishlist'/>
       {toggle ? (
         <>
           <p>You haven't added anything here!</p>
           <Button
             component={RouterLink}
-            to="/upload"
+            to="/addwish"
             onClick={showHide}
             variant="outlined"
             className={classes.button}
