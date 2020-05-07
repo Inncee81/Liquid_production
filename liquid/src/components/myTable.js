@@ -5,7 +5,6 @@ import {useAllMedia} from '../hooks/ApiHooks';
 import {
   GridList,
   GridListTile,
-  ListSubheader,
   makeStyles,
   useMediaQuery,
 } from '@material-ui/core';
@@ -43,22 +42,20 @@ const MyTable = ({tag}) => {
 
   return (
     <div className={classes.root}>
-        {user !== null && picArray.length > 0 &&
-      <GridList
-        cellHeight={250}
-        className={classes.gridList}
-        cols={matches ? 1 : 1}>
-        <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
-          <ListSubheader component="div">All Media</ListSubheader>
-        </GridListTile>
-        {
-          newPicArray.map((file) =>
+      {user !== null && picArray.length > 0 && (
+        <GridList
+          cellHeight={200}
+          className={classes.gridList}
+          cols={matches ? 3 : 2}
+          style={{ background: "#DFDFDF" }}
+        >
+          {newPicArray.map((file) => (
             <GridListTile key={file.file_id}>
-              <MediaRow file={file}/>
-            </GridListTile>)
-        }
-      </GridList>
-    }
+              <MediaRow file={file} />
+            </GridListTile>
+          ))}
+        </GridList>
+      )}
     </div>
   );
 };
