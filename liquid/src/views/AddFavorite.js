@@ -13,12 +13,20 @@ import { MediaContext } from '../contexts/MediaContext';
 const AddFavorite = ({ history }) => {
     const [user] = useContext(MediaContext);
     const [loading, setLoading] = useState(false); 
-    const tag = 'favorite_' + user.user_id;
+    const tag = 'liquidfavorite_' + user.user_id;
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadFavorite(inputs, localStorage.getItem('token'), tag);
+            const uploadObject = {
+                title: inputs.title,
+                description: JSON.stringify ({
+                    desc: inputs.description,
+                }),
+                file: inputs.file,
+            };
+            const result = await 
+            uploadFavorite(uploadObject, localStorage.getItem('token'), tag);
             console.log(result);
             setTimeout(() => {
                 setLoading(false);

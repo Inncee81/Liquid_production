@@ -15,7 +15,14 @@ const Upload = ({ history }) => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadPicture(inputs, localStorage.getItem('token'));
+            const uploadObject = {
+                title: inputs.title,
+                description: JSON.stringify({
+                    desc: inputs.description,
+                }),
+                file: inputs.file,
+            };
+            const result = await uploadPicture(uploadObject, localStorage.getItem('token'));
             console.log(result);
             setTimeout(() => {
                 setLoading(false);

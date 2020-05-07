@@ -5,18 +5,32 @@ import { uploadPicture } from '../hooks/ApiHooks';
 import {    Grid,
             Button,
             TextField,
-            CircularProgress } from '@material-ui/core';
+            CircularProgress,
+            Radio,
+            FormControlLabel,
+            FormControl,
+            FormLabel,
+            RadioGroup, 
+        }  from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Backbutton from '../components/Backbutton';
 
 const AddReview = ({ history }) => {
     const [loading, setLoading] = useState(false); 
-    const tag = 'liquidReviews';
+    const tag = 'liquidappReviews';
     const doUpload = async () => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadPicture(inputs, localStorage.getItem('token'), tag);
+            const uploadObject = {
+                title: inputs.title,
+                description: JSON.stringify({
+                    review: inputs.review,
+                    desc: inputs.description,
+                }),
+                file: inputs.file,
+            };
+            const result = await uploadPicture(uploadObject, localStorage.getItem('token'), tag);
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
@@ -73,6 +87,17 @@ const AddReview = ({ history }) => {
                             <Grid item xs={12}>
                                 <img class="previewImg" src={inputs.dataUrl} alt="preview" />
                             </Grid>}
+                            <FormControl component="fieldset">
+                                        <FormLabel component="legend">Review</FormLabel>
+                                        <RadioGroup aria-label="review" name="review" value={inputs.review} onChange={handleInputChange}>
+                                            <FormControlLabel value='0' control={<Radio />} label="0/5" />
+                                            <FormControlLabel value='1' control={<Radio />} label="1/5" />
+                                            <FormControlLabel value='2' control={<Radio />} label="2/5" />
+                                            <FormControlLabel value='3' control={<Radio />} label="3/5" />
+                                            <FormControlLabel value='4' control={<Radio />} label="4/5" />
+                                            <FormControlLabel value='5' control={<Radio />} label="5/5" />
+                                        </RadioGroup>
+                                </FormControl>
                             <Grid item xs={12}>
                                 <TextValidator
                                     label="Title"

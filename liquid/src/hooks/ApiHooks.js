@@ -155,7 +155,7 @@ try {
     method: 'POST',
     body: JSON.stringify({
       'file_id': json.file_id,
-      'tag': 'liquid',
+      'tag': 'liquidapp',
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -194,7 +194,7 @@ try {
     method: 'POST',
     body: JSON.stringify({
       'file_id': json.file_id,
-      'tag': 'liquidfavorites',
+      'tag': 'liquidappfavorites',
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -294,7 +294,7 @@ try {
     method: 'POST',
     body: JSON.stringify({
       'file_id': json.file_id,
-      'tag': 'liquidwishlist',
+      'tag': 'liquidappwishlist',
     }),
     headers: {
       'Content-Type': 'application/json',

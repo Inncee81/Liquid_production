@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MediaRow = ({file}) => {
+  const description = JSON.parse(file.description);
   const classes = useStyles();
   return (
     <>
@@ -26,14 +27,16 @@ const MediaRow = ({file}) => {
       />
       <GridListTileBar
         title={file.title}
-        subtitle={file.description}
+        subtitle={description.desc}
         actionIcon={
           <IconButton
             aria-label={`info about ${file.title}`}
             component={RouterLink}
             to={'/single/' + file.file_id}
             className={classes.icon}
-          >
+          >{description.review &&
+          <p>{description.review}/5</p>
+          }
             <PageviewIcon fontSize="large"/>
           </IconButton>
         }

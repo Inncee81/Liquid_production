@@ -18,7 +18,14 @@ const AddWish = ({ history }) => {
         setLoading(true);
         console.log('inputs', inputs);
         try {
-            const result = await uploadWish(inputs, localStorage.getItem('token'), tag);
+            const uploadObject = {
+                title: inputs.title,
+                description: JSON.stringify({
+                    desc: inputs.description,
+                }),
+                file: inputs.file,
+            };
+            const result = await uploadWish(uploadObject, localStorage.getItem('token'), tag);
             console.log(result);
             setTimeout(() => {
                 setLoading(false);

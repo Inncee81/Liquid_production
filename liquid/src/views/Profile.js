@@ -78,7 +78,7 @@ const Profile = () => {
           Update profile picture
         </Button>
       <h1>Favorite Games</h1>
-      <MyTable tag='liquidfavorites'/>
+      <MyTable tag='liquidappfavorites'/>
       {toggle ? (
         <>
           <p>You haven't added anything here!</p>
@@ -97,7 +97,7 @@ const Profile = () => {
         " "
       )}
       <h1>Recently reviewed</h1>
-      <MyTable tag='liquidReviews'/>
+      <MyTable tag='liquidappReviews'/>
       {toggle ? (
         <>
           <p>You haven't reviewed anything yet!</p>
@@ -116,7 +116,7 @@ const Profile = () => {
         " "
       )}
       <h1>Wishlist</h1>
-      <MyTable tag='liquidwishlist'/>
+      <MyTable tag='liquidappwishlist'/>
       {toggle ? (
         <>
           <p>You haven't added anything here!</p>

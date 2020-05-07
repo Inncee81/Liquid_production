@@ -7,6 +7,12 @@ const useUploadForm = (callback) => {
         description: '',
         file: null,
         dataUrl:'',
+        brightness: 100,
+        contrast: 100,
+        hue: 100,
+        sepia: 0,
+        review: '3',
+        
     });
     const handleSubmit = (event) => {
       if (event) {
