@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyTable = ({tag}) => {
+const MyTable = ({tag, profiili}) => {
     const [user] =useContext(MediaContext);
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
@@ -62,6 +62,7 @@ const MyTable = ({tag}) => {
 
 MyTable.propTypes = {
     tag: PropTypes.string,
+    profiili: PropTypes.bool,
   };
 
 export default MyTable;

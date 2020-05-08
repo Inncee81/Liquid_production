@@ -78,7 +78,7 @@ const Profile = () => {
       <h1>Favorite Games</h1>
       {toggle ? (
         <>
-          <MyTable tag="liquidappfavorites" />
+          <MyTable tag="liquidappfavorites" profiili={true}/>
         </>
       ) : (
         <>
@@ -98,7 +98,7 @@ const Profile = () => {
       </Button>
       <h1>Recently reviewed</h1>
       {toggle ? (
-        <MyTable tag="liquidappReviews" />
+        <MyTable tag="liquidappReviews" profiili={true}/>
       ) : (
         <p>You haven't reviewed anything yet!</p>
       )}
@@ -116,7 +116,7 @@ const Profile = () => {
       <h1>Wishlist</h1>
       {toggle ? (
         <>
-          <MyTable tag="liquidappwishlist" />
+          <MyTable tag="liquidappwishlist" profiili={true}/>
         </>
       ) : (
         <>

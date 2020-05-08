@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MediaRow = ({ file }) => {
+const MediaRow = ({ file, profiili }) => {
   const description = JSON.parse(file.description);
   const classes = useStyles();
   return (
@@ -86,6 +86,7 @@ const MediaRow = ({ file }) => {
 
 MediaRow.propTypes = {
   file: PropTypes.object,
+  profiili: PropTypes.bool,
 };
 
 export default MediaRow;
