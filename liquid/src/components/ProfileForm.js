@@ -53,7 +53,7 @@ const ProfileForm = ({history}) => {
         {toggle ?
         <Grid container spacing={3}> 
             <Grid item xs={12}>
-                <h1 class="spinning">Update information
+                <h1>Update information
                 </h1>
             </Grid>
             <Grid item xs={12}>

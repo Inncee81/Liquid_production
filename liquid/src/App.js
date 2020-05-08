@@ -21,25 +21,24 @@ const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Container maxWidth="md">
-        <Nav/>
-        <main>
-        <Switch>
-          <Route path="/" exact component={Login}/>
-          <Route path="/home" component={Home}/>
-          <Route path="/profile" component={Profile}/>
-          <Route path={'/logout'} component={Logout}/>
-          <Route path="/single/:id" component={Single}/>
-          <Route path={'/upload'} component={Upload}/>
-          <Route path={'/uploadprofilepic'} component={UploadProfilePic}/>
-          <Route path={'/addfavorite'} component={AddFavorite}/>
-          <Route path={'/addreview'} component={AddReview}/>
-          <Route path={'/addwish'} component={AddWish}/>
-        </Switch>
-        </main>
+        <Container maxWidth="md" style={{ background: "#DFDFDF" }}>
+          <Nav />
+          <main>
+            <Switch>
+              <Route path="/" exact component={Login} />
+              <Route path="/home" component={Home} />
+              <Route path="/profile" component={Profile} />
+              <Route path={"/logout"} component={Logout} />
+              <Route path="/single/:id" component={Single} />
+              <Route path={"/upload"} component={Upload} />
+              <Route path={"/uploadprofilepic"} component={UploadProfilePic} />
+              <Route path={"/addfavorite"} component={AddFavorite} />
+              <Route path={"/addreview"} component={AddReview} />
+              <Route path={"/addwish"} component={AddWish} />
+            </Switch>
+          </main>
         </Container>
       </MediaProvider>
-      
     </Router>
   );
 };

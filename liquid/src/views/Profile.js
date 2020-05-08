@@ -6,6 +6,7 @@ import {
   Button,
   CardContent,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,10 +19,10 @@ const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 645,
+    maxWidth: "100%",
   },
   media: {
-    height: 360,
+    height: 290,
   },
 });
 
@@ -44,7 +45,7 @@ const Profile = () => {
 
   return (
     <>
-      <h1 color="primary">Profile</h1>
+      <h1>Profile</h1>
       {user !== null && avatar.length > 0 && (
         <Card className={classes.root}>
           <CardMedia
@@ -71,69 +72,68 @@ const Profile = () => {
       ) : (
         <ProfileForm />
       )}
-        <Button 
-          component={RouterLink}
-          to='/uploadprofilepic'
-          color="secondary">
-          Update profile picture
-        </Button>
+      <Button component={RouterLink} to="/uploadprofilepic" color="secondary">
+        Update profile picture
+      </Button>
       <h1>Favorite Games</h1>
-      <MyTable tag='liquidappfavorites'/>
       {toggle ? (
         <>
-          <p>You haven't added anything here!</p>
-          <Button
-            component={RouterLink}
-            to="/addfavorite"
-            onClick={showHide}
-            variant="outlined"
-            className={classes.button}
-            startIcon={<AddRoundedIcon />}
-          >
-            Add Games
-          </Button>
+          <MyTable tag="liquidappfavorites" />
         </>
       ) : (
-        " "
+        <>
+          <p>You haven't added anything here!</p>
+        </>
       )}
+      <Button
+        component={RouterLink}
+        to="/addfavorite"
+        onClick={showHide}
+        variant="outlined"
+        className={classes.button}
+        startIcon={<AddRoundedIcon />}
+        color="primary"
+      >
+        Add Games
+      </Button>
       <h1>Recently reviewed</h1>
-      <MyTable tag='liquidappReviews'/>
+      {toggle ? (
+        <MyTable tag="liquidappReviews" />
+      ) : (
+        <p>You haven't reviewed anything yet!</p>
+      )}
+      <Button
+        component={RouterLink}
+        to="/addreview"
+        onClick={showHide}
+        variant="outlined"
+        className={classes.button}
+        startIcon={<AddRoundedIcon />}
+        color="primary"
+      >
+        Rate a game
+      </Button>
+      <h1>Wishlist</h1>
       {toggle ? (
         <>
-          <p>You haven't reviewed anything yet!</p>
-          <Button
-            component={RouterLink}
-            to="/addreview"
-            onClick={showHide}
-            variant="outlined"
-            className={classes.button}
-            startIcon={<AddRoundedIcon />}
-          >
-            Rate a game
-          </Button>
+          <MyTable tag="liquidappwishlist" />
         </>
       ) : (
-        " "
-      )}
-      <h1>Wishlist</h1>
-      <MyTable tag='liquidappwishlist'/>
-      {toggle ? (
         <>
           <p>You haven't added anything here!</p>
-          <Button
-            component={RouterLink}
-            to="/addwish"
-            onClick={showHide}
-            variant="outlined"
-            className={classes.button}
-            startIcon={<AddRoundedIcon />}
-          >
-            Add Games
-          </Button>
         </>
-      ) : (
-        " "
       )}
+      <Button
+        component={RouterLink}
+        to="/addwish"
+        onClick={showHide}
+        variant="outlined"
+        className={classes.button}
+        startIcon={<AddRoundedIcon />}
+        color="primary"
+      >
+        Add Games
+      </Button>
     </>
   );
 };
