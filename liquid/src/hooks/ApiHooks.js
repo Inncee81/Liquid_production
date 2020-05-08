@@ -350,6 +350,29 @@ const useMyMedia = (id) => {
         return data;
 };
 
+const postComment = async (token, id, inputs) => {
+  console.log('kommentti: ', inputs, 'file_id: ', id);
+  const fetchOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      'file_id': parseInt(id),
+      'comment': inputs.comment
+    }),
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  console.log('fetchOptions', fetchOptions);
+  try {
+    const commentResponse = await fetch(baseUrl + 'comments', fetchOptions);
+    const commentJson = await commentResponse.json();
+    return commentJson;
+    
+    } catch (e) {
+      throw new Error(e.message);
+    }
+};
+
 
 export {
   useAllMedia,
@@ -367,6 +390,7 @@ export {
   uploadWish,
   getUser,
   useMyMedia,
+  postComment,
 };
  
 
