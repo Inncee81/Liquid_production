@@ -21,7 +21,7 @@ const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Container maxWidth="md" style={{ background: "#DFDFDF" }}>
+        <Container maxWidth="md">
           <Nav />
           <main>
             <Switch>

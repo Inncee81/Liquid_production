@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
+  box: {
+    padding: "5px 15px 5px 15px",
+  },
+  review: {
+    padding: "0px 5px 0px 0px",
+  },
+  action: {
+    padding: "8px 10px 8px 10px"
+  }
 }));
 
 const MediaRow = ({ file, profiili }) => {
@@ -36,7 +45,7 @@ const MediaRow = ({ file, profiili }) => {
   const classes = useStyles();
   return (
     <>
-      <Card variant="outlined">
+      <Card variant="outlined" color="primary">
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -55,29 +64,41 @@ const MediaRow = ({ file, profiili }) => {
           image={mediaUrl + file.thumbnails.w320}
           title={file.title}
         />
-        <CardContent>
+        <CardContent className={classes.box}>
           <Typography variant="h6" component="p">
             {file.title}
           </Typography>
           <Typography variant="body2" component="p">
             {description.desc}
           </Typography>
-          <Typography>
-            {description.review && <p>{description.review}/5</p>}
-          </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="like">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton
-            aria-label={`info about ${file.title}`}
-            component={RouterLink}
-            to={"/single/" + file.file_id}
-            className={classes.icon}
+        <CardActions disableSpacing className={classes.action}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            <InfoIcon />
-          </IconButton>
+            <Grid item>
+              <IconButton aria-label="like">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton
+                aria-label={`info about ${file.title}`}
+                component={RouterLink}
+                to={"/single/" + file.file_id}
+                className={classes.icon}
+              >
+                <InfoIcon />
+              </IconButton>
+            </Grid>
+            <Grid item
+            className={classes.review}>
+              <Typography>
+                {description.review && <h3>{description.review}/5</h3>}
+              </Typography>
+            </Grid>
+          </Grid>
         </CardActions>
       </Card>
     </>
