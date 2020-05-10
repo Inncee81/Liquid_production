@@ -33,12 +33,12 @@ const Single = ({ match, history }) => {
                     </h2>
                   </Grid>
                   <Grid item xs={12}>
-                    <Media file={file} description={description} />
+                      <Media file={file} description={description} />
                   </Grid>
                   <Grid item xs={12}>
                     <h4>{description.desc}</h4>
                   </Grid>
-                  <CommentForm id={parseInt(match.params.id)}/>
+                  <CommentForm id={parseInt(match.params.id)} />
                 </Grid>
               )}
             </Grid>

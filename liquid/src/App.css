@@ -2,6 +2,10 @@ main {
   padding: 5rem;
 }
 
+body {
+  background-color: #DFDFDF;
+}
+
 table {
   width: 40rem;
   border-spacing: 0;
@@ -12,8 +16,6 @@ td {
   padding: 1rem;
   border-bottom: #ccc 1px solid;
 }
-
-
 
 .App {
   text-align: center;

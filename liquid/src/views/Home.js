@@ -13,7 +13,7 @@ const Home = () => {
         alignItems="center"
       >
         <h1>Home</h1>
-        <MediaTable />
+        <MediaTable profiili={true} />
       </Grid>
     </>
   );

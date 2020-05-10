@@ -41,7 +41,7 @@ const CommentForm = ({ history, id }) => {
                                 <TextField
                                     fullWidth
                                     id="outlined-multiline-static"
-                                    label="Description"
+                                    label="Add comment"
                                     name="comment"
                                     value={inputs.comment}
                                     onChange={handleInputChange}

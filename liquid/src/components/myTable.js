@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyTable = ({tag, profiili}) => {
+const MyTable = ({tag, profile}) => {
     const [user] =useContext(MediaContext);
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
@@ -51,7 +51,7 @@ const MyTable = ({tag, profiili}) => {
         >
           {newPicArray.map((file) => (
             <GridListTile key={file.file_id}>
-              <MediaRow file={file} />
+              <MediaRow file={file} profile={true} />
             </GridListTile>
           ))}
         </GridList>
@@ -62,7 +62,7 @@ const MyTable = ({tag, profiili}) => {
 
 MyTable.propTypes = {
     tag: PropTypes.string,
-    profiili: PropTypes.bool,
+    profile: PropTypes.bool,
   };
 
 export default MyTable;
