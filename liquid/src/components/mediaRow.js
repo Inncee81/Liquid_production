@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { MediaContext } from "../contexts/MediaContext";
 import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -12,11 +13,14 @@ import {
   CardMedia,
   CardActions,
 } from "@material-ui/core";
+import { getAvatarImage } from "../hooks/ApiHooks";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import InfoIcon from "@material-ui/icons/Info";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
+import { deleteFile } from "../hooks/ApiHooks";
 
 const mediaUrl = "http://media.mw.metropolia.fi/wbma/uploads/";
 
@@ -38,126 +42,156 @@ const useStyles = makeStyles((theme) => ({
   action: {
     padding: "8px 10px 8px 10px"
   },
-  media2: {
+}));
+
+const useStyles2 = makeStyles((theme) => ({
+  root: {
+    maxWidth: 600,
+    height: 400,
+  },
+  media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-  box2: {
+  box: {
     padding: "5px 15px 5px 15px",
     display: "flex",
     flexDirection: "row",
   },
-  review2: {
-    padding: "0px 5px 0px 0px",
+  review: {
+    padding: "0px 0px 1px 3px",
+    height: "10%",
+    margin: 0,
   },
-  action2: {
-    padding: "1px 2px 1px 2px"
+  action: {
+    padding: "1px 2px 1px 2px",
   },
-  icon2: {
+  icon: {
     fontSize: "20",
-  }
+    padding: 0,
+  },
 }));
 
 const MediaRow = ({ file, profile }) => {
+  const [user] = useContext(MediaContext);
   const description = JSON.parse(file.description);
   const classes = useStyles();
+  const classes2 = useStyles2();
+  const [avatar, setAvatar] = useState([]);
+  useEffect(() => {
+    (async () => {
+      if (user !== null) {
+        setAvatar(await getAvatarImage(user.user_id));
+      }
+    })();
+  }, [user]);
+
   if (profile !== true ){
     return (
       <>
-        <Card variant="outlined" color="primary">
-          <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                R
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings" color="primary">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title={file.user}
-          />
-          <CardMedia
-            className={classes.media}
-            image={mediaUrl + file.thumbnails.w320}
-            title={file.title}
-          />
-          <CardContent className={classes.box}>
-            <Typography variant="h6" component="p">
-              {file.title}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {description.desc}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing className={classes.action}>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <IconButton aria-label="like">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton
-                  aria-label={`info about ${file.title}`}
-                  component={RouterLink}
-                  to={"/single/" + file.file_id}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
+        {user !== null && avatar.length > 0 && (
+          <Card variant="outlined" color="primary">
+            <CardHeader
+              avatar={
+                <Avatar
+                  aria-label="avatar"
+                  src={mediaUrl + avatar[1].filename}
+                />
+              }
+              title={file.user}
+            />
+            <CardMedia
+              className={classes.media}
+              image={mediaUrl + file.thumbnails.w320}
+              title={file.title}
+            />
+            <CardContent className={classes.box}>
+              <Typography variant="h6" component="p">
+                {file.title}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {description.desc}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing className={classes.action}>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Grid item>
+                  <IconButton aria-label="like">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label={`info about ${file.title}`}
+                    component={RouterLink}
+                    to={"/single/" + file.file_id}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item className={classes.review}>
+                  <Typography>
+                    {description.review && <h3>{description.review}/5</h3>}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item className={classes.review}>
-                <Typography>
-                  {description.review && <h3>{description.review}/5</h3>}
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardActions>
-        </Card>
+            </CardActions>
+          </Card>
+        )}
       </>
     );
   } else {
     console.log("ollaan elsessä");
     return (
       <>
-        <Card variant="outlined" color="primary">
+        <Card variant="outlined" color="primary" className={classes2.root}>
           <CardMedia
-            className={classes.media2}
+            className={classes2.media}
             image={mediaUrl + file.thumbnails.w320}
             title={file.title}
           />
-          <CardContent className={classes.box2}>
-            <Typography variant="body2" component="p">
+          <CardContent className={classes2.box}>
+            <Typography variant="subtitle1" component="subtitle1">
               {file.title}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing className={classes.action2}>
+          <CardActions disableSpacing className={classes2.action}>
             <Grid
               container
               direction="row"
               justify="space-between"
               alignItems="center"
-              className={classes.actionBox}
+              className={classes2.actionBox}
             >
+              <Grid item className={classes2.review}>
+                <Typography>
+                  {description.review && (
+                    <subtitle1>{description.review}/5</subtitle1>
+                  )}
+                </Typography>
+              </Grid>
               <Grid item>
                 <IconButton
-                  aria-label={`info about ${file.title}`}
-                  component={RouterLink}
-                  to={"/single/" + file.file_id}
-                  className={classes.icon2}
+                  aria-label={`modify ${file.title}`}
+                  className={classes2.icon}
                 >
-                  <InfoIcon />
+                  <MoreVertIcon />
                 </IconButton>
-              </Grid>
-              <Grid item className={classes.review2}>
-                <Typography>
-                  {description.review && <h3>{description.review}/5</h3>}
-                </Typography>
+                <IconButton
+                  aria-label={`delete file`}
+                  className={classes2.icon}
+                  onClick={() => {
+                    const confirmOk = window.confirm('do you really wanna delete?');
+                    if (confirmOk) {
+                      deleteFile(file.file_id);
+                    }
+                  }}>
+                  <DeleteForeverRoundedIcon />
+                </IconButton>
               </Grid>
             </Grid>
           </CardActions>

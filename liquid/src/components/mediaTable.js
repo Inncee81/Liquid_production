@@ -39,9 +39,8 @@ const MediaTable = () => {
         className={classes.gridList}
         cols={matches ? 1 : 1}
         direction="column"
-        justify="space-around"
+        justify="space-evenly"
         alignItems="center"
-        spacing={10}
       >
         {picArray.map((file) => (
           <GridListTile key={file.file_id}>

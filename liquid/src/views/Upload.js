@@ -66,7 +66,7 @@ const Upload = ({ history }) => {
         <Backbutton/>
             <Grid container spacing={8}>
                 <Grid item>
-                    <h1>ウッポロアド</h1>
+                    <h1>Upload anything you want to share!</h1>
                 </Grid>
                 <Grid item xs={12}>
                     <ValidatorForm

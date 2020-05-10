@@ -12,18 +12,21 @@ import { MediaContext } from '../contexts/MediaContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
   },
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+    color: "rgba(255, 255, 255, 0.54)",
   },
 }));
 
@@ -44,10 +47,10 @@ const MyTable = ({tag, profile}) => {
     <div className={classes.root}>
       {user !== null && picArray.length > 0 && (
         <GridList
-          cellHeight={200}
+          cellHeight={240}
           className={classes.gridList}
-          cols={matches ? 3 : 2}
           style={{ background: "#DFDFDF" }}
+          cols={2.5}
         >
           {newPicArray.map((file) => (
             <GridListTile key={file.file_id}>
