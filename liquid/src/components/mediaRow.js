@@ -81,11 +81,11 @@ const MediaRow = ({ file, profile }) => {
   useEffect(() => {
     (async () => {
       if (user !== null) {
-        setAvatar(await getAvatarImage(user.user_id));
+        setAvatar(await getAvatarImage(file.user_id));
       }
     })();
   }, [user]);
-
+console.log('mikä täällä on rikki: ',file)
   if (profile !== true ){
     return (
       <>
@@ -95,13 +95,14 @@ const MediaRow = ({ file, profile }) => {
               avatar={
                 <Avatar
                   aria-label="avatar"
-                  src={mediaUrl + avatar[1].filename}
+                  src={mediaUrl + avatar[0].filename}
                 />
               }
               title={file.user}
             />
             <CardMedia
               className={classes.media}
+              
               image={mediaUrl + file.thumbnails.w320}
               title={file.title}
             />

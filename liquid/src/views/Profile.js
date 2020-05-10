@@ -58,7 +58,7 @@ const Profile = () => {
           <Card className={classes.root}>
             <CardMedia
               className={classes.media}
-              image={mediaUrl + avatar[1].filename}
+              image={mediaUrl + avatar[0].filename}
               title="profilePicture"
             />
             <CardContent>

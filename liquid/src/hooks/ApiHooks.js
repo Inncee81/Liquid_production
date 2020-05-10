@@ -10,11 +10,25 @@ const useAllMedia = (tag) => {
 
     const items = await Promise.all(
       json.map(async (item) => {
+        const fetchOptions = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': localStorage.getItem('token'),
+          },
+      };
         const response = await fetch(baseUrl + "media/" + item.file_id);
-        return await response.json();
+        const responseJSON = await response.json();
+        const responseUser = await fetch(baseUrl + 'users/' + parseInt(responseJSON.user_id), fetchOptions);
+        const responseUserJSON = await responseUser.json();
+        return {
+          ...item,
+          user: responseUserJSON.username,
+          thumbnails: responseJSON.thumbnails,
+        }
       })
     );
-    console.log(items);
+    console.log('useallmedia: ', items);
     setData(items);
   };
 

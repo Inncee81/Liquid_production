@@ -30,7 +30,7 @@ const MediaTable = () => {
 
   const picArray = useAllMedia('liquidapp');
 
-  console.log(picArray);
+  console.log('täällä picArrayssa: ', picArray);
 
   return (
     <div className={classes.root}>
