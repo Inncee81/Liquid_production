@@ -14,6 +14,7 @@ import UploadProfilePic from "./views/UploadProfilePic";
 import AddFavorite from "./views/AddFavorite";
 import AddReview from './views/AddReview';
 import AddWish from './views/AddWish';
+import MyFiles from './views/MyFiles';
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
               <Route path={"/addfavorite"} component={AddFavorite} />
               <Route path={"/addreview"} component={AddReview} />
               <Route path={"/addwish"} component={AddWish} />
+              <Route path={'/myfiles'} component={MyFiles}/>
             </Switch>
           </main>
         </Container>

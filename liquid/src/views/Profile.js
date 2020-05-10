@@ -54,6 +54,12 @@ const Profile = () => {
             title="profilePicture"
           />
           <CardContent>
+          <Button
+          component={RouterLink}
+          to="/myfiles"
+          >
+            My Files
+          </Button>
             <Typography gutterBottom variant="h5" component="h2">
               {user.username}
             </Typography>
