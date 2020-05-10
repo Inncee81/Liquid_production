@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  drawer: {
+    width: "200px",
+  }
 }));
 
 const Nav = ({history}) => {
@@ -72,7 +75,7 @@ const Nav = ({history}) => {
               color="inherit"
               startIcon={<AddBoxRoundedIcon />}
               component={RouterLink}
-              to="/upload"
+              to="/newpost"
             >
               New post
             </Button>
@@ -98,7 +101,7 @@ const Nav = ({history}) => {
           )}
         </Toolbar>
       </AppBar>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={toggleDrawer(false)} className={classes.drawer}>
         <List>
           <ListItem
             button
@@ -128,7 +131,7 @@ const Nav = ({history}) => {
                 button
                 component={RouterLink}
                 onClick={toggleDrawer(false)}
-                to="/upload"
+                to="/newpost"
               >
                 <ListItemIcon>
                   <AddPhotoAlternateRoundedIcon color="primary" />

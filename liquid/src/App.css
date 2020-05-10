@@ -1,5 +1,5 @@
 main {
-  padding: 5rem;
+  padding: 5rem 0;
 }
 
 body {
@@ -19,54 +19,4 @@ td {
 
 .App {
   text-align: center;
-}
-
-.spinning {
-  padding: 1rem;
-  pointer-events: none;
-}
-
-.spinning2 {
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .spinning {
-    animation: App-logo-spin infinite 2s linear;
-  }
-  .spinning2 {
-    animation: App-logo-spin2 infinite 2s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  0%   {background-color: purple;}
-  25%  {background-color: navy;}
-  50%  {background-color: pink;}
-  75% {background-color: turquoise;}
-  100% {background-color: rgb(98, 0, 255);}
-}
-
-@keyframes App-logo-spin2 {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

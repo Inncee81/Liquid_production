@@ -14,15 +14,20 @@ import UploadProfilePic from "./views/UploadProfilePic";
 import AddFavorite from "./views/AddFavorite";
 import AddReview from './views/AddReview';
 import AddWish from './views/AddWish';
+<<<<<<< HEAD
 import MyFiles from './views/MyFiles';
 
+=======
+import ProfileView from './views/ProfileView';
+import NewUpload from './views/NewUpload';
+>>>>>>> 70c236e7388031b511b76d6ef6c01737aae5d359
 
 
 const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
           <Nav />
           <main>
             <Switch>
@@ -36,7 +41,11 @@ const App = () => {
               <Route path={"/addfavorite"} component={AddFavorite} />
               <Route path={"/addreview"} component={AddReview} />
               <Route path={"/addwish"} component={AddWish} />
+<<<<<<< HEAD
               <Route path={'/myfiles'} component={MyFiles}/>
+=======
+              <Route path={"/newpost"} component={NewUpload} />
+>>>>>>> 70c236e7388031b511b76d6ef6c01737aae5d359
             </Switch>
           </main>
         </Container>

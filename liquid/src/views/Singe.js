@@ -3,17 +3,41 @@ import PropTypes from "prop-types";
 import { useSingleMedia, useComments } from "../hooks/ApiHooks";
 import Backbutton from "../components/Backbutton";
 import Media from "../components/Media";
-import { Grid, } from "@material-ui/core";
-import CommentForm from '../components/CommentForm';
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  CardHeader,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import CommentForm from "../components/CommentForm";
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: "100%",
+  },
+  media: {
+    height: 290,
+  },
+  title: {
+    width: "50%",
+  }
+});
 
 const Single = ({ match, history }) => {
   console.log("match", match.params.id);
+  const classes = useStyles();
   const file = useSingleMedia(match.params.id);
   let description = undefined;
   if (file !== null) {
     description = JSON.parse(file.description);
   }
-  const commentsArray = useComments(match.params.id, localStorage.getItem('token'));
+  const commentsArray = useComments(
+    match.params.id,
+    localStorage.getItem("token")
+  );
   console.log("single file", file);
 
   return (
@@ -21,37 +45,60 @@ const Single = ({ match, history }) => {
       {file !== null && (
         <>
           <Backbutton />
-          <Grid>
-            <Grid>
-              <h1>{file.title}</h1>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Card className={classes.root}>
+                <CardHeader
+                  title={
+                    file.user ? file.user.username : "login to see userdata"
+                  }
+                />
+                <CardContent>
+                  {description && (
+                    <Grid
+                      container
+                      spacing={1}
+                      direction="column"
+                      justify="center"
+                    >
+                      <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                      >
+                        <Grid item xs={12} className={classes.title}>
+                          <Typography variant="body2">
+                            {file.title}
+                            {description.review && (
+                              <h3>{description.review}/5</h3>
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Media file={file} description={description} />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <body2>{description.desc}</body2>
+                      </Grid>
+                    </Grid>
+                  )}
+                </CardContent>
+              </Card>
             </Grid>
-            <Grid>
-              {description && (
-                <Grid container spacing={1} direction="column" justify="center">
-                  <Grid item xs={12}>
-                    <h2>
-                      {file.user ? file.user.username : "login to see userdata"}{" "}
-                    </h2>
-                  </Grid>
-                  <Grid item xs={12}>
-                      <Media file={file} description={description} />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <h4>{description.desc}</h4>
-                  </Grid>
-                  <div style={{overflow:'scroll', height:'45vh'}}>
-        {
-          commentsArray.map((item) =>
-          <div>
-            <h4>{item.user}: </h4>
-          <p>{item.comment}</p>
-          </div>
-          )
-        }
-      </div>
-                  <CommentForm id={parseInt(match.params.id)} />
-                </Grid>
-              )}
+            <Grid item xs={12}>
+              <div style={{ overflow: "scroll", height: "45vh" }}>
+                {commentsArray.map((item) => (
+                  <div>
+                    <h4>{item.user}: </h4>
+                    <p>{item.comment}</p>
+                  </div>
+                ))}
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <CommentForm id={parseInt(match.params.id)} />
             </Grid>
           </Grid>
         </>
