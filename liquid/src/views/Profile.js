@@ -44,38 +44,6 @@ const Profile = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <>
-      <h1>Profile</h1>
-      {user !== null && avatar.length > 0 && (
-        <Card className={classes.root}>
-          <CardMedia
-            className={classes.media}
-            image={mediaUrl + avatar[1].filename}
-            title="profilePicture"
-          />
-          <CardContent>
-          <Button
-          component={RouterLink}
-          to="/myfiles"
-          >
-            My Files
-          </Button>
-            <Typography gutterBottom variant="h5" component="h2">
-              {user.username}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {user.email}
-              <br></br>
-              {user.full_name}
-            </Typography>
-          </CardContent>
-        </Card>
-      )}
-      {toggle ? (
-        <Button onClick={showHide} color="secondary">
-          Update profile
-=======
     <Grid
       container
       direction="column"
@@ -114,7 +82,6 @@ const Profile = () => {
         )}
         <Button component={RouterLink} to="/uploadprofilepic" color="secondary">
           Update profile picture
->>>>>>> 70c236e7388031b511b76d6ef6c01737aae5d359
         </Button>
       </Grid>
       <Grid item xs={12}>
