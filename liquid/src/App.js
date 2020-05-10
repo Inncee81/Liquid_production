@@ -17,6 +17,7 @@ import AddWish from './views/AddWish';
 import MyFiles from './views/MyFiles';
 import ProfileView from './views/ProfileView';
 import NewUpload from './views/NewUpload';
+import Modify from './views/Modify';
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
               <Route path={"/addwish"} component={AddWish} />
               <Route path={'/myfiles'} component={MyFiles}/>
               <Route path={"/newpost"} component={NewUpload} />
+              <Route path={'/modify/:id'} component={Modify}/>
             </Switch>
           </main>
         </Container>

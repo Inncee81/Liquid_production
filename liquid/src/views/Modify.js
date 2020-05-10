@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useModifyForm from '../hooks/ModifyHooks';
-import { modifyFile } from '../hooks/ApiHooks';
+import { modifyFile, useSingleMedia } from '../hooks/ApiHooks';
 import {
     Grid,
     Button,
@@ -13,13 +13,15 @@ import {
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Backbutton from '../components/Backbutton';
 
-const Modify = ({ history }) => {
+const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+
+const Modify = ({ history, match }) => {
     const [loading, setLoading] = useState(false);
+    const file = useSingleMedia(match.params.id);
     const doModify = async () => {
         setLoading(true);
-        console.log('inputs', inputs);
         try {
-            const uploadObject = {
+            const modifyObject = {
                 title: inputs.title,
                 description: JSON.stringify({
                     review: inputs.review,
@@ -32,7 +34,7 @@ const Modify = ({ history }) => {
                     },
                 }),
             };
-            const result = await modifyFile(uploadObject, localStorage.getItem('token'));
+            const result = await modifyFile(modifyObject, localStorage.getItem('token'));
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
@@ -44,7 +46,27 @@ const Modify = ({ history }) => {
     };
 
     const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange, handleSliderChange} = useModifyForm(doModify);
-    
+
+    let description = undefined;
+    if (file !== null) {
+        description = JSON.parse(file.description);
+        console.log(description);
+    };
+
+    useEffect(()=>{
+        (async () =>{
+            if (file !== null) {
+                setInputs((inputs) => {
+                    return {
+                        title: file.title,
+                        description: description.desc,
+                        filename: file.filename,
+                    };
+                });
+            }
+        })();
+    },[file, setInputs]);
+    console.log('inputs', inputs);
     return (
         <>
             <Backbutton />
@@ -59,7 +81,7 @@ const Modify = ({ history }) => {
                         noValidate
                     >
                         <Grid container spacing={3}>
-                            {inputs.dataUrl.length > 0 &&
+                            {inputs.filename.length > 0 &&
                                 <Grid item xs={12}>
                                     <img class="previewImg" style={
                                         {
@@ -70,7 +92,7 @@ const Modify = ({ history }) => {
                                             sepia(${inputs.sepia}%)`,
 
                                         }
-                                    } src={inputs.filename} alt="preview" />
+                                    } src={mediaUrl + inputs.filename} alt="preview" />
                                     <Typography>Brightenss</Typography>
                                     <Slider
                                         name='brightness'
@@ -160,6 +182,7 @@ const Modify = ({ history }) => {
 
 Modify.propTypes = {
     history: PropTypes.object,
+    match: PropTypes.object,
 };
 
 export default Modify;
