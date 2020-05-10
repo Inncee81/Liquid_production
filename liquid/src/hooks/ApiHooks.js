@@ -359,6 +359,7 @@ const postComment = async (token, id, inputs) => {
       'comment': inputs.comment
     }),
     headers: {
+      'Content-Type': 'application/json',
       'x-access-token': token,
     },
   };
