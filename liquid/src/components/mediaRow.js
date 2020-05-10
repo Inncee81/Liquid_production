@@ -177,6 +177,8 @@ const MediaRow = ({ file, profile }) => {
               <Grid item>
                 <IconButton
                   aria-label={`modify ${file.title}`}
+                  component={RouterLink}
+                  to={"/modify/" + file.file_id}
                   className={classes2.icon}
                 >
                   <MoreVertIcon />
