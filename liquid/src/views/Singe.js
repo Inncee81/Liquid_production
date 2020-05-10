@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSingleMedia } from "../hooks/ApiHooks";
+import { useSingleMedia, useComments } from "../hooks/ApiHooks";
 import Backbutton from "../components/Backbutton";
 import Media from "../components/Media";
 import { Grid, } from "@material-ui/core";
@@ -13,6 +13,7 @@ const Single = ({ match, history }) => {
   if (file !== null) {
     description = JSON.parse(file.description);
   }
+  const commentsArray = useComments(match.params.id, localStorage.getItem('token'));
   console.log("single file", file);
 
   return (
@@ -38,6 +39,16 @@ const Single = ({ match, history }) => {
                   <Grid item xs={12}>
                     <h4>{description.desc}</h4>
                   </Grid>
+                  <div style={{overflow:'scroll', height:'45vh'}}>
+        {
+          commentsArray.map((item) =>
+          <div>
+            <h4>{item.user}: </h4>
+          <p>{item.comment}</p>
+          </div>
+          )
+        }
+      </div>
                   <CommentForm id={parseInt(match.params.id)} />
                 </Grid>
               )}

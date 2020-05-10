@@ -374,6 +374,75 @@ const postComment = async (token, id, inputs) => {
     }
 };
 
+const useComments = (id, token) => {
+  const [item, setItem] = useState([]);
+  const fetchUrl = async () => {
+    const response = await fetch(baseUrl + 'comments/file/' + id);
+    const json = await response.json();
+    const items = await Promise.all(
+      json.map(async (item) => {
+        const fetchOptions = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token,
+          },
+      };
+        const responseUser = await fetch(baseUrl + 'users/' + parseInt(item.user_id), fetchOptions);
+        const responseJSON = await responseUser.json();
+        return {
+          ...item,
+          user: responseJSON.username,
+        };
+      })
+    );
+  
+    setItem(items);
+  };
+
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+  return item;
+};
+
+const deleteFile = async (id) => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media/' + id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const modifyFile = async (inputs, id) => {
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'media/' + id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 
 export {
   useAllMedia,
@@ -392,6 +461,9 @@ export {
   getUser,
   useMyMedia,
   postComment,
+  modifyFile,
+  deleteFile,
+  useComments,
 };
  
 
