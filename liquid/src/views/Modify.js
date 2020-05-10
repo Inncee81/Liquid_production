@@ -45,7 +45,7 @@ const Modify = ({ history, match }) => {
         }
     };
 
-    const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange, handleSliderChange} = useModifyForm(doModify);
+    const { inputs, setInputs, handleInputChange, handleSubmit, handleSliderChange} = useModifyForm(doModify);
 
     let description = undefined;
     if (file !== null) {
