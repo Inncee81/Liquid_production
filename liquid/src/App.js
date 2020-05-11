@@ -40,7 +40,7 @@ const App = () => {
               <Route path={"/addwish"} component={AddWish} />
               <Route path={"/myfiles"} component={MyFiles} />
               <Route path={"/newpost"} component={NewUpload} />
-              <Route path="/modify/:id" component={Modify} />
+              <Route path={'/modify/:id'} component={Modify}/>
             </Switch>
           </main>
         </Container>

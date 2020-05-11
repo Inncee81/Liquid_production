@@ -41,11 +41,25 @@ const useUploadForm = (callback) => {
 
     };
 
+    const handleSliderChange = (event, value) => {
+      if (event.target.previousElementSibling !== null &&
+          event.target.previousElementSibling.name !== undefined && event.target !== null) {
+            console.log(event.target.previousElementSibling, value);
+        setInputs( (inputs) => { 
+          return {
+                ...inputs, 
+                [event.target.previousElementSibling.name]: value,
+              };
+          });
+      };
+    };
+
 
     return {
       handleSubmit,
       handleInputChange,
       handleFileChange, 
+      handleSliderChange,
       inputs,
       setInputs,
     };
