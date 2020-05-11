@@ -47,13 +47,13 @@ const MyTable = ({tag, profile}) => {
     <div className={classes.root}>
       {user !== null && picArray.length > 0 && (
         <GridList
-          cellHeight={240}
+          cellHeight={"100%"}
           className={classes.gridList}
           style={{ background: "#DFDFDF" }}
           cols={2.5}
         >
           {newPicArray.map((file) => (
-            <GridListTile key={file.file_id}>
+            <GridListTile key={file.file_id} cellHeight={100}>
               <MediaRow file={file} profile={true} />
             </GridListTile>
           ))}

@@ -53,6 +53,9 @@ const Single = ({ match, history }) => {
                     file.user ? file.user.username : "login to see userdata"
                   }
                 />
+                <CardMedia>
+                  <Media width="50%" file={file} description={description} />
+                </CardMedia>
                 <CardContent>
                   {description && (
                     <Grid
@@ -68,17 +71,10 @@ const Single = ({ match, history }) => {
                         alignItems="center"
                       >
                         <Grid item xs={12} className={classes.title}>
-                          <Typography variant="body2">
-                            {file.title}
-                            {description.review && (
-                              <h3>{description.review}/5</h3>
-                            )}
-                          </Typography>
+                          <Typography variant="body2">{file.title}</Typography>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12}>
-                        <Media file={file} description={description} />
-                      </Grid>
+                      <Grid item xs={12}></Grid>
                       <Grid item xs={12}>
                         <body2>{description.desc}</body2>
                       </Grid>

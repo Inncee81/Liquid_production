@@ -4,10 +4,17 @@ import useSignUpForm from "../hooks/RegisterHooks";
 import { register, login, checkUserAvailable } from "../hooks/ApiHooks";
 import { withRouter } from "react-router-dom";
 import { MediaContext } from "../contexts/MediaContext";
-import { Button, TextField, Grid } from "@material-ui/core";
+import { Button, TextField, Grid, Typography, makeStyles } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingTop: "20%",
+  },
+}));
+
 const RegisterForm = ({ history }) => {
+  const classes = useStyles();
   const [user, setUser] = useContext(MediaContext);
 
   const doRegister = async () => {
@@ -56,9 +63,12 @@ const RegisterForm = ({ history }) => {
         direction="column"
         justify="center"
         alignItems="center"
+        className={classes.container}
       >
         <Grid item xs={12}>
-          <h1>Register</h1>
+          <Typography component="h2" variant="h3">
+            Register
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <ValidatorForm onSubmit={handleSubmit} noValidate>

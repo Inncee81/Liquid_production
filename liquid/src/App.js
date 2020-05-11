@@ -38,7 +38,7 @@ const App = () => {
               <Route path={"/addfavorite"} component={AddFavorite} />
               <Route path={"/addreview"} component={AddReview} />
               <Route path={"/addwish"} component={AddWish} />
-              <Route path={'/myfiles'} component={MyFiles}/>
+              <Route path={"/myfiles"} component={MyFiles} />
               <Route path={"/newpost"} component={NewUpload} />
               <Route path={'/modify/:id'} component={Modify}/>
             </Switch>
