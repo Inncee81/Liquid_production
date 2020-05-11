@@ -251,6 +251,7 @@ return tagJson;
 }
 };
 
+
 const uploadProfilePicture = async (inputs, token, tag) => {
   const formData = new FormData();
         formData.append('title', inputs.title);

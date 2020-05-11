@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useCommentForm from '../hooks/CommentHooks';
-import { postComment } from '../hooks/ApiHooks';
+import { postComment, useComments } from '../hooks/ApiHooks';
 import {
     Grid,
     Button,
