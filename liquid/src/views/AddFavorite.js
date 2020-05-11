@@ -66,79 +66,83 @@ const AddFavorite = ({ history }) => {
     }, [inputs.file, setInputs]);
 
     return (
-        <>  
-        <Backbutton/>
-            <Grid container spacing={8}>
-                <Grid item>
-                    <h1>Add Favorite Game</h1>
+      <>
+        <Backbutton />
+        <Grid container spacing={8}>
+          <Grid item>
+            <h1>Add Favorite Game</h1>
+          </Grid>
+          <Grid item xs={12}>
+            <ValidatorForm
+              onSubmit={handleSubmit}
+              instantValidate={false}
+              noValidate
+            >
+              <Grid container spacing={3}>
+                {inputs.dataUrl.length > 0 && (
+                  <Grid item xs={12}>
+                    <img
+                      class="previewImg"
+                      src={inputs.dataUrl}
+                      alt="preview"
+                    />
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  <TextValidator
+                    label="Title"
+                    fullWidth
+                    type="text"
+                    name="title"
+                    value={inputs.title}
+                    onChange={handleInputChange}
+                    validators={["required"]}
+                    errormessage={["this field is required, biz"]}
+                  />
                 </Grid>
                 <Grid item xs={12}>
-                    <ValidatorForm
-                        onSubmit={handleSubmit}
-                        instantValidate={false}
-                        noValidate
-                    >
-                        <Grid container spacing={3}>
-                            {inputs.dataUrl.length > 0 &&
-                            <Grid item xs={12}>
-                                <img class="previewImg" src={inputs.dataUrl} alt="preview" />
-                            </Grid>}
-                            <Grid item xs={12}>
-                                <TextValidator
-                                    label="Title"
-                                    fullWidth
-                                    type="text"
-                                    name="title"
-                                    value={inputs.title}
-                                    onChange={handleInputChange}
-                                    validators={[
-                                        'required',
-                                    ]}
-                                    errormessage={[
-                                        'this field is required, biz',
-                                    ]}
-                                />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        fullWidth
-                                        id="outlined-multiline-static"
-                                        label="Description"
-                                        name="description"
-                                        value={inputs.description}
-                                        onChange={handleInputChange}
-                                        multiline
-                                        rows={4}
-                                        defaultValue="Default Value"
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextValidator
-                                        fullWidth
-                                        type="file"
-                                        name="file"
-                                        accept="image/*,video/*,audio/*"
-                                        onChange={handleFileChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Button
-                                        fullWidth
-                                        color="primary"
-                                        variant="contained"
-                                        type="submit">Add to Profile</Button>
-                                </Grid>
-                            </Grid>
-                    </ValidatorForm>
-                    {loading &&
-                    <Grid item xs={12}> 
-                        <CircularProgress color="secondary" />
-                    </Grid>
-                    }
+                  <TextField
+                    fullWidth
+                    id="outlined-multiline-static"
+                    label="Description"
+                    name="description"
+                    value={inputs.description}
+                    onChange={handleInputChange}
+                    multiline
+                    rows={4}
+                    defaultValue="Description"
+                    variant="outlined"
+                  />
                 </Grid>
-            </Grid>
-        </>
+                <Grid item xs={12}>
+                  <TextValidator
+                    fullWidth
+                    type="file"
+                    name="file"
+                    accept="image/*,video/*,audio/*"
+                    onChange={handleFileChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    fullWidth
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                  >
+                    Add to Profile
+                  </Button>
+                </Grid>
+              </Grid>
+            </ValidatorForm>
+            {loading && (
+              <Grid item xs={12}>
+                <CircularProgress color="secondary" />
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+      </>
     );
 }
 

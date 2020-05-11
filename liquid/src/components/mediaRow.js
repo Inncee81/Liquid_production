@@ -15,10 +15,9 @@ import {
 } from "@material-ui/core";
 import { getAvatarImage } from "../hooks/ApiHooks";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import InfoIcon from "@material-ui/icons/Info";
+import AddCommentRoundedIcon from "@material-ui/icons/AddCommentRounded";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Avatar from "@material-ui/core/Avatar";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 import { deleteFile } from "../hooks/ApiHooks";
 
@@ -36,21 +35,45 @@ const useStyles = makeStyles((theme) => ({
   box: {
     padding: "5px 15px 5px 15px",
   },
-  review: {
-    padding: "0px 5px 0px 0px",
-  },
   action: {
-    padding: "8px 10px 8px 10px"
+    padding: "8px 10px 8px 10px",
+  },
+  default: {
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
+  five: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#0bdbb6",
+  },
+  four: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#68ff08",
+  },
+  three: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#e2e33f",
+  },
+  two: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#ffaa08",
+  },
+  one: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#ff1508",
+  },
+  zero: {
+    padding: "0px 5px 0px 0px",
+    backgroundColor: "#262d2c",
   },
 }));
 
 const useStyles2 = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    height: 400,
+    height: 225,
   },
   media: {
-    height: 0,
+    height: 25,
     paddingTop: "56.25%", // 16:9
   },
   box: {
@@ -77,6 +100,7 @@ const MediaRow = ({ file, profile }) => {
   const description = JSON.parse(file.description);
   const classes = useStyles();
   const classes2 = useStyles2();
+  let pallo = classes.default;
   const [avatar, setAvatar] = useState([]);
   useEffect(() => {
     (async () => {
@@ -85,8 +109,22 @@ const MediaRow = ({ file, profile }) => {
       }
     })();
   }, [user]);
-console.log('mikä täällä on rikki: ',file)
-  if (profile !== true ){
+
+  if (description.review == "5") {
+    pallo = classes.five;
+  } else if (description.review == "4") {
+    pallo = classes.four;
+  } else if (description.review == "3") {
+    pallo = classes.three;
+  } else if (description.review == "2") {
+    pallo = classes.two;
+  } else if (description.review == "1") {
+    pallo = classes.one;
+  } else if (description.review == "0") {
+    pallo = classes.zero;
+  };
+
+  if (profile !== true) {
     return (
       <>
         {user !== null && avatar.length > 0 && (
@@ -102,7 +140,6 @@ console.log('mikä täällä on rikki: ',file)
             />
             <CardMedia
               className={classes.media}
-              
               image={mediaUrl + file.thumbnails.w320}
               title={file.title}
             />
@@ -122,21 +159,23 @@ console.log('mikä täällä on rikki: ',file)
                 alignItems="center"
               >
                 <Grid item>
-                  <IconButton aria-label="like">
-                    <FavoriteIcon />
-                  </IconButton>
                   <IconButton
                     aria-label={`info about ${file.title}`}
                     component={RouterLink}
                     to={"/single/" + file.file_id}
                     className={classes.icon}
                   >
-                    <InfoIcon />
+                    <AddCommentRoundedIcon />
                   </IconButton>
                 </Grid>
-                <Grid item className={classes.review}>
+                <Grid item>
                   <Typography>
-                    {description.review && <h3>{description.review}/5</h3>}
+                    <Avatar className={pallo}>
+                      {description.review && (
+                        <subtitle1>{description.review}/5</subtitle1>
+                      )}
+                      {!description.review && " "}
+                    </Avatar>
                   </Typography>
                 </Grid>
               </Grid>
@@ -146,7 +185,6 @@ console.log('mikä täällä on rikki: ',file)
       </>
     );
   } else {
-    console.log("ollaan elsessä");
     return (
       <>
         <Card variant="outlined" color="primary" className={classes2.root}>
@@ -168,8 +206,8 @@ console.log('mikä täällä on rikki: ',file)
               alignItems="center"
               className={classes2.actionBox}
             >
-              <Grid item className={classes2.review}>
-                <Typography>
+              <Grid item>
+                <Typography className={classes2.review}>
                   {description.review && (
                     <subtitle1>{description.review}/5</subtitle1>
                   )}
@@ -188,11 +226,14 @@ console.log('mikä täällä on rikki: ',file)
                   aria-label={`delete file`}
                   className={classes2.icon}
                   onClick={() => {
-                    const confirmOk = window.confirm('do you really wanna delete?');
+                    const confirmOk = window.confirm(
+                      "do you really wanna delete?"
+                    );
                     if (confirmOk) {
                       deleteFile(file.file_id);
                     }
-                  }}>
+                  }}
+                >
                   <DeleteForeverRoundedIcon />
                 </IconButton>
               </Grid>
@@ -200,7 +241,8 @@ console.log('mikä täällä on rikki: ',file)
           </CardActions>
         </Card>
       </>
-    );};
+    );
+  }
 };
 
 MediaRow.propTypes = {

@@ -35,11 +35,11 @@ const MediaTable = () => {
   return (
     <div className={classes.root}>
       <GridList
-        cellHeight={700}
+        cellHeight={"100%" }
         className={classes.gridList}
-        cols={matches ? 1 : 1}
+        cols={1}
         direction="column"
-        justify="space-evenly"
+        justify="flex-start"
         alignItems="center"
       >
         {picArray.map((file) => (

@@ -4,7 +4,20 @@ import {checkToken} from '../hooks/ApiHooks';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {MediaContext} from '../contexts/MediaContext';
-import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, ListItemIcon, Button, Typography, makeStyles, } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Button,
+  Typography,
+  makeStyles,
+  useMediaQuery,
+} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -31,6 +44,7 @@ const Nav = ({history}) => {
   const classes = useStyles();
   const [user, setUser] = useContext(MediaContext);
   const [open, setOpen] = React.useState(false);
+  const matches = useMediaQuery("(min-width:697px)");
 
   const toggleDrawer = (opener) => () => {
     setOpen(opener);
@@ -101,7 +115,11 @@ const Nav = ({history}) => {
           )}
         </Toolbar>
       </AppBar>
-      <Drawer open={open} onClose={toggleDrawer(false)} className={classes.drawer}>
+      <Drawer
+        open={open}
+        onClose={toggleDrawer(false)}
+        className={classes.drawer}
+      >
         <List>
           <ListItem
             button
@@ -136,8 +154,33 @@ const Nav = ({history}) => {
                 <ListItemIcon>
                   <AddPhotoAlternateRoundedIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="Upload" />
+                <ListItemText primary="New Post" />
               </ListItem>
+              {user === null ? (
+                <ListItem
+                  button
+                  component={RouterLink}
+                  onClick={toggleDrawer(false)}
+                  to="/login"
+                >
+                  <ListItemIcon>
+                    <ExitToAppIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Login" />
+                </ListItem>
+                ) : (
+                  <ListItem
+                  button
+                  component={RouterLink}
+                  onClick={toggleDrawer(false)}
+                  to="/logout"
+                >
+                  <ListItemIcon>
+                    <ExitToAppIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItem>
+              )}
             </>
           )}
         </List>

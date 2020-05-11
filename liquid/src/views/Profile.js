@@ -86,15 +86,7 @@ const Profile = () => {
       </Grid>
       <Grid item xs={12}>
         <h1>Favorite Games</h1>
-        {toggle ? (
-          <>
             <MyTable tag="liquidappfavorites" profile={true} />
-          </>
-        ) : (
-          <>
-            <p>You haven't added anything here!</p>
-          </>
-        )}
       </Grid>
 
       <Grid item xs={12}>
@@ -112,11 +104,7 @@ const Profile = () => {
       </Grid>
       <Grid item xs={12}>
         <h1>Recently reviewed</h1>
-        {toggle ? (
-          <MyTable tag="liquidappReviews" profile={true} />
-        ) : (
-          <p>You haven't reviewed anything yet!</p>
-        )}{" "}
+          <MyTable tag="liquidappReviews" profile={true} /> 
       </Grid>
 
       <Grid item xs={12}>
@@ -135,15 +123,7 @@ const Profile = () => {
 
       <Grid item xs={12}>
         <h1>Wishlist</h1>
-        {toggle ? (
-          <>
-            <MyTable tag="liquidappwishlist" profile={true} />
-          </>
-        ) : (
-          <>
-            <p>You haven't added anything here!</p>
-          </>
-        )}
+          <MyTable tag="liquidappwishlist" profile={true} />
       </Grid>
       <Grid item xs={12}>
         <Button

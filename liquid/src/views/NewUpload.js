@@ -2,10 +2,8 @@ import React from "react";
 import {
   Grid,
   Button,
-  GridList,
-  GridListTile,
   makeStyles,
-  IconButton,
+  Typography,
 } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -25,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "rgba(0, 150, 136, 0.6)",
   },
+  container: {
+    paddingTop: "20%",
+    paddingBottom: "20%",
+  },
 }));
 
 const NewUpload = () => {
@@ -34,12 +36,18 @@ const NewUpload = () => {
       <Backbutton />
       <Grid
         container
+        className={classes.container}
         direction="column"
         justify="space-evenly"
         alignItems="center"
         spacing={2}
       >
-        <Grid item>
+        <Grid item xs={12}>
+          <Typography>
+            <h3>What do you want to post?</h3>
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Button
             component={RouterLink}
             to="/addreview"
@@ -50,7 +58,7 @@ const NewUpload = () => {
             Rate a game
           </Button>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <Button
             component={RouterLink}
             to="/addwish"
@@ -58,10 +66,21 @@ const NewUpload = () => {
             startIcon={<AddRoundedIcon />}
             color="primary"
           >
-            Add Games
+            Add Games to your wishlist
           </Button>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
+          <Button
+            component={RouterLink}
+            to="/addfavorite"
+            variant="outlined"
+            startIcon={<AddRoundedIcon />}
+            color="primary"
+          >
+            Add new favorite games
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
           <Button
             component={RouterLink}
             to="/upload"
@@ -69,10 +88,11 @@ const NewUpload = () => {
             startIcon={<AddRoundedIcon />}
             color="primary"
           >
-            Upload Media
+            Upload any Media
           </Button>
         </Grid>
       </Grid>
+      <Backbutton />
     </Grid>
   );
 };
