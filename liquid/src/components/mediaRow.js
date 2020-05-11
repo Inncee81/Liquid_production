@@ -207,11 +207,11 @@ const MediaRow = ({ file, profile }) => {
               className={classes2.actionBox}
             >
               <Grid item>
-                <Typography className={classes2.review}>
+              <Avatar className={pallo}>
                   {description.review && (
                     <subtitle1>{description.review}/5</subtitle1>
                   )}
-                </Typography>
+                </Avatar>
               </Grid>
               <Grid item>
                 <IconButton
